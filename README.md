@@ -1,173 +1,78 @@
-# SQL-Fundamentals-Snowflake-Basic-SQL-Syntax-
-📘 SQL Practice Queries — Retail Sales Dataset
-📌 Overview
-This project demonstrates SQL queries for exploring, filtering, aggregating, and classifying retail sales data from the table:
+# 📘 Retail Sales SQL Analysis Queries
 
-Code
-RETAIL_SALES_DATASET.PUBLIC.ANALYSIS121
-The queries cover:
+## 📌 Summary of the Case Study
+This case study demonstrates how SQL queries can be applied to analyze **retail sales data** stored in the dataset `RETAIL_SALES_DATASET.PUBLIC.ANALYSIS121`. The project focused on filtering transactions, aggregating revenue and quantities, classifying customers and transactions, and applying conditional logic with CASE statements. The goal was to transform raw transactional data into **business insights** that support decision-making in sales, marketing, and customer segmentation.
 
-Basic retrieval (SELECT *)
+---
 
-Distinct values
+## 🔍 How the Case Study Was Done
+1. **Dataset Exploration**
+   - Source: `RETAIL_SALES_DATASET.PUBLIC.ANALYSIS121`
+   - Example columns:  
+     `TRANSACTION_ID`, `DATE`, `CUSTOMER_ID`, `AGE`, `GENDER`,  
+     `PRODUCT_CATEGORY`, `QUANTITY`, `PRICE_PER_UNIT`, `TOTAL_AMOUNT`.
 
-Filtering with WHERE, IN, NOT IN, BETWEEN
+2. **SQL Query Development**
+   - **Basic Exploration**
+     - Displayed all columns for all transactions.  
+     - Selected specific fields such as Transaction ID, Date, and Customer ID.  
+     - Extracted distinct product categories and gender values.  
 
-Aggregations (COUNT, SUM, AVG, MAX, MIN)
+   - **Filtering**
+     - Transactions where Age > 40.  
+     - Transactions with Price per Unit between 100 and 500.  
+     - Transactions in specific categories (Beauty, Electronics) or excluding Clothing.  
+     - Transactions with Quantity ≥ 3.  
 
-Grouping (GROUP BY, HAVING)
+   - **Aggregations**
+     - Counted total transactions.  
+     - Calculated average customer age.  
+     - Summed total quantity sold.  
+     - Found maximum Total Amount and minimum Price per Unit.  
 
-Conditional logic (CASE)
+   - **Grouped Insights**
+     - Number of transactions per product category.  
+     - Total revenue per gender.  
+     - Average Price per Unit per product category.  
+     - Total revenue per product category with HAVING > 10,000.  
+     - Average quantity per product category with HAVING > 2.  
 
-🛠️ Requirements
-SQL-compatible database (Snowflake, PostgreSQL, MySQL, SQL Server, Oracle, etc.)
+   - **Conditional Logic**
+     - Classified transactions into Spending Levels (High vs. Low).  
+     - Labeled customers into Age Groups (Youth, Adult, Senior).  
 
-Table: RETAIL_SALES_DATASET.PUBLIC.ANALYSIS121
+3. **Techniques Applied**
+   - **Filtering with WHERE** → Age, price ranges, product categories, quantities.  
+   - **Aggregations with SUM, AVG, COUNT, MAX, MIN** → Revenue, quantities, customer demographics.  
+   - **GROUP BY and HAVING** → Category-level insights and thresholds.  
+   - **CASE Statements** → Customer segmentation and transaction classification.  
 
-Example columns: TRANSACTION_ID, DATE, CUSTOMER_ID, PRODUCT_CATEGORY, GENDER, AGE, PRICE_PER_UNIT, QUANTITY, TOTAL_AMOUNT
+---
 
-📂 Queries
-1. 🔎 Display All Columns
-sql
-SELECT * 
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Retrieves all records and columns.
+## 📊 Insights Found
+- Customers aged **over 40** contributed a significant portion of transactions.  
+- Products priced between **100–500** formed a key mid-range segment.  
+- **Beauty and Electronics** categories showed strong transaction volumes.  
+- **Clothing** was excluded to highlight other category contributions.  
+- High-value transactions (Total Amount > 1000) were identified as **premium spending behavior**.  
+- Customer segmentation revealed clear **Youth, Adult, and Senior groups**, useful for targeted marketing.  
+- Gender-based revenue analysis showed **differences in spending patterns**.  
+- Categories with revenue > 10,000 were flagged as **top performers**.  
+- Average quantity analysis highlighted categories with **bulk purchases**.  
 
-2. 🧾 Transaction ID, Date, Customer ID
-sql
-SELECT TRANSACTION_ID, DATE, CUSTOMER_ID
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Displays only key identifiers for each transaction.
+---
 
-3. 🛍️ Distinct Product Categories
-sql
-SELECT DISTINCT(PRODUCT_CATEGORY)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Lists all unique product categories.
+## 🎯 Summary of Findings
+By applying SQL queries to the dataset, the project uncovered:  
+- **Revenue drivers** across product categories and genders.  
+- **Customer segmentation** by age and spending levels.  
+- **Transaction-level insights** into pricing, product demand, and purchase behavior.  
 
-4. 🚻 Distinct Gender Values
-sql
-SELECT DISTINCT(GENDER)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Shows all unique gender values.
+This demonstrates how SQL can be leveraged to deliver **business intelligence** that supports **sales strategy, customer targeting, and inventory management**.
 
-5. 👵 Transactions Where Age > 40
-sql
-SELECT * 
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-WHERE AGE > 40;
-Filters customers older than 40.
+---
 
-6. 💵 Price per Unit Between 100 and 500
-sql
-SELECT *
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-WHERE PRICE_PER_UNIT BETWEEN 100 AND 500;
-Retrieves transactions with mid-range unit prices.
-
-7. 💄📱 Beauty or Electronics Transactions
-sql
-SELECT *
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-WHERE PRODUCT_CATEGORY IN ('Beauty','Electronics');
-Filters transactions in Beauty or Electronics categories.
-
-8. 👕 Exclude Clothing Transactions
-sql
-SELECT *
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-WHERE PRODUCT_CATEGORY NOT IN ('Clothing');
-Shows all transactions except Clothing.
-
-9. 📦 Quantity ≥ 3
-sql
-SELECT *
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-WHERE QUANTITY >= 3;
-Filters bulk purchases (3 or more units).
-
-10. 🔢 Count Total Transactions
-sql
-SELECT COUNT(*) AS TOTAL_TRANSACTION
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Returns total number of transactions.
-
-11. 📊 Average Age of Customers
-sql
-SELECT AVG(AGE)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Calculates average customer age.
-
-12. 📦 Total Quantity Sold
-sql
-SELECT SUM(QUANTITY) AS TotalQuantitySold
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Aggregates total units sold.
-
-13. 💰 Maximum Transaction Amount
-sql
-SELECT MAX(TOTAL_AMOUNT)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Finds the highest spending in a single transaction.
-
-14. 🏷️ Minimum Price per Unit
-sql
-SELECT MIN(PRICE_PER_UNIT)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Retrieves the lowest unit price.
-
-15. 🛍️ Transaction Count per Product Category
-sql
-SELECT PRODUCT_CATEGORY, COUNT(*) AS Transaction_Count
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-GROUP BY PRODUCT_CATEGORY;
-Counts transactions grouped by product category.
-
-16. 🚻 Total Revenue per Gender
-sql
-SELECT GENDER, SUM(TOTAL_AMOUNT) AS TOTAL_REVENUE
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-GROUP BY GENDER;
-Aggregates revenue by gender.
-
-17. 💵 Average Price per Unit per Category
-sql
-SELECT PRODUCT_CATEGORY, AVG(PRICE_PER_UNIT)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-GROUP BY PRODUCT_CATEGORY;
-Calculates average unit price per category.
-
-18. 💰 Revenue per Category > 10,000
-sql
-SELECT PRODUCT_CATEGORY, SUM(TOTAL_AMOUNT) AS Total_revenue
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-GROUP BY PRODUCT_CATEGORY
-HAVING SUM(TOTAL_AMOUNT) > 10000;
-Filters categories with revenue above 10,000.
-
-19. 📦 Average Quantity per Category > 2
-sql
-SELECT PRODUCT_CATEGORY, AVG(QUANTITY)
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121"
-GROUP BY PRODUCT_CATEGORY
-HAVING AVG(QUANTITY) > 2;
-Shows categories with average quantity above 2.
-
-20. 💳 Spending Level Classification
-sql
-SELECT TRANSACTION_ID, TOTAL_AMOUNT,
-       CASE WHEN TOTAL_AMOUNT > 1000 THEN 'High'
-            ELSE 'Low'
-       END AS SPENDING_LEVEL
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Labels transactions as High or Low spending.
-
-21. 👶👨👴 Age Group Classification
-sql
-SELECT CUSTOMER_ID, AGE,
-       CASE WHEN AGE < 30 THEN 'Youth'
-            WHEN AGE BETWEEN 30 AND 59 THEN 'Adult'
-            WHEN AGE >= 60 THEN 'Senior'
-       END AS AGE_GROUP
-FROM "RETAIL_SALES_DATASET"."PUBLIC"."ANALYSIS121";
-Categorizes customers into Youth, Adult, Senior groups.
+## 🛠️ Tools Used
+- **SQL-compatible environments** (BigQuery, Snowflake, PostgreSQL, MySQL, SQL Server)  
+- **SQL functions** (SELECT, DISTINCT, WHERE, SUM, AVG, COUNT, MAX, MIN, GROUP BY, HAVING, CASE)  
+- **Optional Visualization Tools**: Power BI, Excel (pivot tables, dashboards) 
